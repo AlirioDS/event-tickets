@@ -1,24 +1,16 @@
-# README
+EVENT-TICKET (Practica)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Sistema para la creacion de eventos y compras de tickets
 
-Things you may want to cover:
+Inicio:
+  - Rake db:create db:migrate db:seed
 
-* Ruby version
+Usuarios:
+  user: admin@admin.com
+  password: 123456789
 
-* System dependencies
+  user: user@user.com
+  password: 123456789
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Server de pruebas
+  https://eventtickets111.herokuapp.com/

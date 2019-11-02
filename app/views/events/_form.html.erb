@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-end">
-      <%= form.submit "Crear", class: "btn btn-primary" %>
+      <%= form.submit "#{@event.new_record? ? "Crear" : "Actualizar" }", class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>
