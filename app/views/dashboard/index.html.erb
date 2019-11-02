@@ -1,0 +1,105 @@
+<div class="container-fluid pb-4">
+  <div class="card">
+    <div class="card-header text-center">
+      <div class="d-flex justify-content-center">
+        Eventos
+      </div>
+    </div>
+    <div class="card-body">
+      <%- if current_user.admin?%>
+        <div class="container-fluid pb-2">
+          <div class="d-flex justify-content-end">
+            <%= link_to new_event_path do %>
+              <button type="button" class="btn btn-outline-success">Nuevo Evento</button>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="container-fluid">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Categoria</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @events.each do |event| %>
+              <tr>
+                <th><%= event.name %></th>
+                <td><%= event.category %></td>
+                <td><%= event.description %></td>
+                <td><%= event.price %></td>
+                <td>
+                  <%- if current_user.admin? %>
+                    <div class="d-flex justify-contetn-center">
+                      <%= link_to edit_event_path(event) do %>
+                      <button type="button" class="btn btn-outline-info">Editar</button>
+                      <% end %>
+                      <%= link_to event, method: :delete, data: { Confirm: "Desea Eliminar el Evento" }, class: "pl-1" do %>
+                        <button type="button" class="btn btn-outline-danger">Eliminar</button>
+                      <% end %>  
+                    </div>
+                  <% else %>
+                    <div class="d-flex justify-contetn-center">
+                      <%= link_to new_ticket_path(event_id: event.id), method: :post do %>
+                      <button type="button" class="btn btn-outline-success">Comprar Ticket</button>
+                      <% end %>  
+                    </div>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- unless current_user.admin? %>
+  <div class="container-fluid pt-4">
+    <div class="card">
+      <div class="card-header text-center">
+        <div class="d-flex justify-content-center">
+          Tickets Comprados
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="container-fluid">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Ticket #</th>
+                <th scope="col">Nombre del Evento</th>
+                <th scope="col">Descripcion del Evento</th>
+                <th scope="col">Precio del Ticket</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @tickets.each do |ticket| %>
+                <tr>
+                  <th><%= ticket.id %></th>
+                  <td><%= ticket.event.category %></td>
+                  <td><%= ticket.event.description %></td>
+                  <td><%= ticket.event.price %></td>
+                  <td>
+                    <div class="d-flex justify-contetn-center">
+                      <%= link_to destroy_ticket_path(id: ticket.id), method: :delete, data: { Confirm: "Desea Eliminar el Ticket" }, class: "pl-1" do %>
+                        <button type="button" class="btn btn-outline-danger">Eliminar</button>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
